@@ -1,10 +1,10 @@
-const planeta_schema = require('../schemas/planeta.schema');
+const planeta_schema = require('../models/planeta.schema');
 
-exports.CriaPlaneta = function (planeta) {
+exports.CriaPlaneta = function (req, res) {
     let planetaSchema = new planeta_schema({
-        nome: planeta.nome,
-        clima: planeta.clima,
-        terreno: planeta.terreno
+        nome: req.body.nome,
+        clima: req.body.clima,
+        terreno: req.body.terreno
     });
 
     planetaSchema.save(function (err) {

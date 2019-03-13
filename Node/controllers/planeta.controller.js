@@ -11,6 +11,7 @@ exports.CriaPlaneta = function (req, res) {
         if (err) {
             return next(err);
         }
+        
         res.send('Product Created successfully')
     })
 };

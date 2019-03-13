@@ -1,6 +1,16 @@
-const planeta_model = require('../models/planeta.model');
+const planeta_schema = require('../schemas/planeta.schema');
 
-//Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
+exports.CriaPlaneta = function (planeta) {
+    let planetaSchema = new planeta_schema({
+        nome: planeta.nome,
+        clima: planeta.clima,
+        terreno: planeta.terreno
+    });
+
+    planetaSchema.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Product Created successfully')
+    })
 };

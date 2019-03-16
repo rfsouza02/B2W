@@ -3,6 +3,16 @@ const router = express.Router();
 const planeta_controller = require('../controllers/planeta.controller');
 
 // Cria um novo planeta.
-router.post('/planetas', planeta_controller.CriaPlaneta);
+router.post('/', planeta_controller.CriaPlaneta);
+
+// Buscar todos os planetas.
+router.get('/', planeta_controller.BuscarPlanetas);
+
+router.param('id', function(request, response, next, id) {
+    next();
+});  
+
+// Busca por ID.
+router.get('/:id', planeta_controller.BuscarPlanetas);
 
 module.exports = router;

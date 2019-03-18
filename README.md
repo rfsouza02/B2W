@@ -11,6 +11,7 @@ Comandos
 ========
 
 - Adicionar um planeta (com nome, clima e terreno)
+
 Ex.: POST http://localhost:3000/planetas/ 
 
 enviando na requisição o corpo em JSON: 
@@ -66,7 +67,9 @@ Instruções para execução
 =========================
 
 1 - Clonar o Projeto.
+
 2 - Rodar o 'npm i' na pasta raiz.
+
 3 - Rodar o comando 'node index.js' na pasta raiz.
 
 

@@ -13,6 +13,8 @@ router.param('id', function(request, response, next, id) {
 });  
 
 // Busca por ID.
-router.get('/:id', planeta_controller.BuscarPlanetas);
+router.get('/:id', planeta_controller.BuscarPlaneta);
+
+router.delete('/:id', planeta_controller.DeletarPlaneta);
 
 module.exports = router;

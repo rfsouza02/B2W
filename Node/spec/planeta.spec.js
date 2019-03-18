@@ -235,6 +235,45 @@ describe("Suite de testes para a controller de planetas.", function() {
         expect(res.json).toHaveBeenCalled();
     });
 
+    it("Busca planetas pelo nome ocorre erro ou não encontra e retorna 404.", async function() {
+        // Arrange
+        var planetaDal = require('../DAL/planeta.dal');
+
+        req.query = { nome: 'Tatooine' };
+
+        spyOn(res, 'status');
+        spyOn(res, 'json');
+        spyOn(planetaDal, 'buscarPlanetas').and.returnValue(new Promise((res, reject) => {
+            reject();
+        }));
+
+        // Act
+        await planeta_controller.BuscarPlanetas(req, res);
+
+        // Assert
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalled();
+    });
+
+    it("Busca planeta por Nome com sucesso e retorna 200.", async function() {
+        // Arrange
+        var planetaDal = require('../DAL/planeta.dal');
+
+        req.query = { nome: 'Tatooine' };
+
+        spyOn(res, 'status');
+        spyOn(res, 'json');
+        spyOn(planetaDal, 'buscarPlanetas').and.returnValue(new Promise((res, reject) => {
+            res();
+        }));
+
+        // Act
+        await planeta_controller.BuscarPlaneta(req, res);
+
+        // Assert
+        expect(res.json).toHaveBeenCalled();
+    });
+
     it("Busca de todos os planetas ocorre erro e retorna 404.", async function() {
         // Arrange
         var planetaDal = require('../DAL/planeta.dal');
@@ -249,6 +288,46 @@ describe("Suite de testes para a controller de planetas.", function() {
 
         // Act
         await planeta_controller.BuscarPlaneta(req, res);
+
+        // Assert
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalled();
+    });
+
+    it("Deleta planeta com sucesso por id e retorna 204.", async function() {
+        // Arrange
+        var planetaDal = require('../DAL/planeta.dal');
+
+        req.params = { id: 123456 };
+
+        spyOn(res, 'status');
+        spyOn(res, 'json');
+        spyOn(planetaDal, 'deletarPlaneta').and.returnValue(new Promise((res, reject) => {
+            res();
+        }));
+
+        // Act
+        await planeta_controller.DeletarPlaneta(req, res);
+
+        // Assert
+        expect(res.status).toHaveBeenCalledWith(204);
+        expect(res.json).toHaveBeenCalled();
+    });
+
+    it("Deleta planeta que não existe por id e retorna 404.", async function() {
+        // Arrange
+        var planetaDal = require('../DAL/planeta.dal');
+
+        req.params = { id: 123456 };
+
+        spyOn(res, 'status');
+        spyOn(res, 'json');
+        spyOn(planetaDal, 'deletarPlaneta').and.returnValue(new Promise((res, reject) => {
+            reject();
+        }));
+
+        // Act
+        await planeta_controller.DeletarPlaneta(req, res);
 
         // Assert
         expect(res.status).toHaveBeenCalledWith(404);

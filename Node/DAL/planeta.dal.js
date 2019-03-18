@@ -1,15 +1,46 @@
 const planeta_schema = require('../models/planeta.schema');
 
 const dal = {
-    buscarPlanetas: function() {
+    deletarPlaneta: function(id) {
         return new Promise((resolve, reject) => { 
-            planeta_schema.find(function(err, docs) {
+            planeta_schema.findByIdAndRemove(id, function(err, doc) {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve(docs);
+                    
+                    if (doc == null) {
+                        reject();
+                    }
+                    resolve(doc);
                 }
             });
+        });
+    },
+    buscarPlanetas: function(query) {
+        return new Promise((resolve, reject) => { 
+            if (query != null) {
+                planeta_schema.find(query, function(err, docs) {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        if (docs.length === 0) {
+                            reject();
+                        }
+                        resolve(docs);
+                    }
+                });
+            } else {
+                planeta_schema.find(function(err, docs) {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        if (docs.length === 0) {
+                            reject();
+                        }
+                        resolve(docs);
+                    }
+                });
+            }
         });
     },
     buscaPlanetaPorId: function(id) {
@@ -18,6 +49,9 @@ const dal = {
                 if (err) {
                     reject(err)
                 } else {
+                    if (doc == null) {
+                        reject();
+                    }
                     resolve(doc);
                 }
             });
@@ -29,6 +63,9 @@ const dal = {
                 if (err) {
                     reject(err)
                 } else {
+                    if (doc == null) {
+                        reject();
+                    }
                     resolve(doc);
                 }
             });
@@ -42,6 +79,9 @@ const dal = {
                 if (err) {
                     reject(err);
                 } else {
+                    if (doc == null) {
+                        reject();
+                    }
                     resolve(doc);
                 }
             });

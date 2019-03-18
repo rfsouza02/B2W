@@ -7,8 +7,4 @@ let Planeta = new Schema({
     terreno: { type: String, required: true, max: 240 }
 });
 
-Planeta.virtual('aparicoes').get(function() {  
-    return 'Funciona';
-});
-
 module.exports = mongoose.model('Planeta', Planeta);
